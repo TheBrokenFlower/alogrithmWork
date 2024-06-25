@@ -110,7 +110,6 @@ struct funcStack {
         int ret = -1;
         while (!this->empty ()) {
             auto nowd = this->top ();
-            this->pop ();
             if (nowd.vec[0] > nowd.vec[1])
                 return -1;
             int mid = (nowd.vec[0] + nowd.vec[1]) >> 1;
@@ -126,8 +125,48 @@ struct funcStack {
                 this->push (newd);
             }
         }
+        this->pop ();
         return -1;
     }
+    int executeDP () {
+        std::string name = "dfs";
+        std::vector <int> tempVec;
+        tempVec.push_back (goodNum);
+        tempVec.push_back (capacity);
+        funcElement fE (name, tempVec);
+        this->push (fE);
+        while (!this->empty ()) {
+            auto nowd = this->top ();
+            int nown = nowd.vec[0];
+            int nowm = nowd.vec[1];
+            if (nown == 0) {
+                this->pop ();
+                continue;
+            }
+            if (vis[nown][nowm]) {
+                this->pop ();
+                continue;
+            }
+            vis[nown][nowm] = true;
+            if (nowm >= weight[nown]) {
+                funcElement newfE = fE;
+                newfE.vec[0] = nown - 1;
+                newfE.vec[1] = nowm - weight[nown];
+                this->push (newfE);
+                newfE.vec[0] = nown - 1;
+                newfE.vec[1] = nowm;
+                this->push (newfE);
+            } else {
+                funcElement newfE = fE;
+                newfE.vec[0] = nown - 1;
+                newfE.vec[1] = nowm;
+                this->push (newfE);
+            }
+
+            this->pop ();
+        }
+    }
+
 } FuncStack;
 
 #endif //TEAM_ALGORITHM_FUNCTIONSTACK_H
