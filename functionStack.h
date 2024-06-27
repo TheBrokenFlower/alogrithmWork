@@ -110,6 +110,7 @@ struct funcStack {
         int ret = -1;
         while (!this->empty ()) {
             auto nowd = this->top ();
+            this->pop ();
             if (nowd.vec[0] > nowd.vec[1])
                 return -1;
             int mid = (nowd.vec[0] + nowd.vec[1]) >> 1;
@@ -125,7 +126,6 @@ struct funcStack {
                 this->push (newd);
             }
         }
-        this->pop ();
         return -1;
     }
     int executeDP () {
@@ -162,8 +162,6 @@ struct funcStack {
                 newfE.vec[1] = nowm;
                 this->push (newfE);
             }
-
-            this->pop ();
         }
     }
 
