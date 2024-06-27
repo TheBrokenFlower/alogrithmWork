@@ -45,6 +45,8 @@ struct TuringMachine {
         moveTot++;
         this->arr[cnt] = tuElement (1, x, "");
         std::cout << "插入数字" << x << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
         this->print ();
     }
     void insertChar (char x) {
@@ -55,11 +57,15 @@ struct TuringMachine {
         tempS += x;
         this->arr[cnt] = tuElement (0, 0, tempS);
         std::cout << "写入字符" << x << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
         this->print ();
     }
     void erase () {
         this->cnt--;
         std::cout << "删除" << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
         this->print ();
     }
     void print () {
@@ -95,7 +101,7 @@ struct TuringMachine {
         for (int i = 1; i <= r; i++)
             std::cout << "-";
         std::cout << std::endl;
-        system ("pause");
+        _sleep(1000);
         system ("cls");
     }
     int binSearch (int x) {
@@ -104,10 +110,14 @@ struct TuringMachine {
         moveTot++;
         L = arr[this->pos].num;
         std::cout << "读取L" << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
         this->print ();
         this->pos = n + 3;
         moveTot++;
         std::cout << "读取R" << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
         this->print ();
         R = arr[this->pos].num;
         this->insertChar ('$');
@@ -116,11 +126,15 @@ struct TuringMachine {
             this->pos = n + 2;
             moveTot++;
             std::cout << "读取L" << std::endl;
+            std::cout << std::endl;
+            std::cout << std::endl;
             this->print ();
             L = arr[this->pos].num;
             this->pos = n + 3;
             moveTot++;
             std::cout << "读取R" << std::endl;
+            std::cout << std::endl;
+            std::cout << std::endl;
             this->print ();
             R = arr[this->pos].num;
             int mid = (L + R) >> 1;
@@ -129,14 +143,19 @@ struct TuringMachine {
             this->pos = mid;
             moveTot++;
             std::cout << "指针转移到数组下标为" << mid << "的位置" << std::endl;
+            std::cout << std::endl;
+            std::cout << std::endl;
             this->print ();
             if (arr[this->pos].num == x) {
                 std::cout << "当前元素 = " << x << std::endl;
+                std::cout << std::endl;
+                std::cout << std::endl;
                 this->print ();
                 return this->pos;
             } else if (arr[this->pos].num < x) {
                 std::cout << "当前元素 < " << x << std::endl;
                 std::cout << "更改L值" << std::endl;
+                std::cout << std::endl;
                 this->pos = n + 2;
                 moveTot++;
                 arr[this->pos].num = mid + 1;
@@ -144,6 +163,7 @@ struct TuringMachine {
             } else {
                 std::cout << "当前元素 > " << x << std::endl;
                 std::cout << "更改R值" << std::endl;
+                std::cout << std::endl;
                 this->pos = n + 3;
                 moveTot++;
                 arr[this->pos].num = mid - 1;
