@@ -1,10 +1,13 @@
 #include <bits/stdc++.h>
-const int MAXN = 1e4 + 5;
+const int MAXN = 2e3 + 5;
 const int INF = 0x7fffffff;
 int n, arr[MAXN];
 #define LL long long
 #define mod %
 #include "turing.h"
+bool vis[MAXN][MAXN];
+int weight[MAXN], val[MAXN], f[MAXN][MAXN];
+int goodNum, capacity;
 #include "functionStack.h"
 std::map <int, int> discrete;
 
@@ -49,6 +52,7 @@ int main() {
         cout << "|                                     |\n";
         cout << "|  2.Recursive System Binary Search   |\n";
         cout << "|                                     |\n";
+        cout << "|  3.Recursive System 01 bag DP       |\n";
         cout << "|                                     |\n";
         cout << "---------------------------------------\n";
         int x;
@@ -83,6 +87,13 @@ int main() {
             } else {
                 cout << "findPos = " << findPos << endl;
             }
+        } else if (x == 3) {
+            cout << "Recursive System 01 bag DP" << endl;
+            cin >> goodNum >> capacity;
+            for (int i = 1; i <= goodNum; i++) {
+                cin >> weight[i] >> val[i];
+            }
+            FuncStack = OriginStack;
         } else {
             break;
         }
