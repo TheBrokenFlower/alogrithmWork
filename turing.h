@@ -101,7 +101,7 @@ struct TuringMachine {
         for (int i = 1; i <= r; i++)
             std::cout << "-";
         std::cout << std::endl;
-        _sleep(1000);
+        Sleep(1000);
         system ("cls");
     }
     int binSearch (int x) {
