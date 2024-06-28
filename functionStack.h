@@ -46,6 +46,7 @@ struct funcElement {
 };
 
 struct funcStack {
+    int memCost;
     std::vector <funcElement> vec;
     funcStack () {}
     funcStack (std::vector <funcElement> _vec) {
@@ -53,7 +54,10 @@ struct funcStack {
             this->vec.push_back (x);
     }
     inline void print () {
-        int maxLen = 0;
+        system ("cls");
+        for (int i = 1; i <= 20 - 2 * (vec.size () + 1); i++)
+            std::cout << std::endl;
+        int maxLen = 20;
         for (auto x : vec) {
             maxLen = std::max (maxLen, x.width ());
         }
@@ -83,6 +87,7 @@ struct funcStack {
             std::cout << "-";
         }
         std::cout << std::endl;
+        Sleep (1000);
     }
     inline bool empty () {
         return this->vec.empty ();
@@ -128,43 +133,37 @@ struct funcStack {
         }
         return -1;
     }
-    int executeDP () {
-        std::string name = "dfs";
-        std::vector <int> tempVec;
-        tempVec.push_back (goodNum);
-        tempVec.push_back (capacity);
-        funcElement fE (name, tempVec);
-        this->push (fE);
-        while (!this->empty ()) {
-            auto nowd = this->top ();
-            int nown = nowd.vec[0];
-            int nowm = nowd.vec[1];
-            if (nown == 0) {
-                this->pop ();
-                continue;
-            }
-            if (vis[nown][nowm]) {
-                this->pop ();
-                continue;
-            }
-            vis[nown][nowm] = true;
-            if (nowm >= weight[nown]) {
-                funcElement newfE = fE;
-                newfE.vec[0] = nown - 1;
-                newfE.vec[1] = nowm - weight[nown];
-                this->push (newfE);
-                newfE.vec[0] = nown - 1;
-                newfE.vec[1] = nowm;
-                this->push (newfE);
-            } else {
-                funcElement newfE = fE;
-                newfE.vec[0] = nown - 1;
-                newfE.vec[1] = nowm;
-                this->push (newfE);
-            }
-        }
-    }
-
 } FuncStack;
+
+int recursiveTot, maxRecusiveTot;
+int executeTot;
+
+int memDfs (int i, int j) {
+    executeTot++;
+    if (i == 0)
+        return 0;
+    recursiveTot++;
+    maxRecusiveTot = std::max (maxRecusiveTot, recursiveTot);
+    funcElement fE;
+    fE.name = "memDfs";
+    std::vector <int> vec;
+    vec.push_back (i);
+    vec.push_back (j);
+    fE.vec = vec;
+    if (vis[i][j]) {
+        recursiveTot--;
+        return f[i][j];
+    }
+    FuncStack.push (fE);
+    if (j >= weight[i]) {
+        f[i][j] = std::max (memDfs (i - 1, j), memDfs (i - 1, j - weight[i]) + val[i]);
+    } else {
+        f[i][j] = memDfs (i - 1, j);
+    }
+    vis[i][j] = true;
+    FuncStack.pop ();
+    recursiveTot--;
+    return f[i][j];
+}
 
 #endif //TEAM_ALGORITHM_FUNCTIONSTACK_H
