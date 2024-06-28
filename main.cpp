@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <windows.h>
 const int MAXN = 2e3 + 5;
 const int INF = 0x7fffffff;
 int n, arr[MAXN];
@@ -25,7 +26,9 @@ inline int find (int l, int r, int x) {
 }
 
 int main() {
+    cout << "please input n : " << endl;
     cin >> n;
+    cout << "please input the whole array[" << n << "] : " << endl;
     for (int i = 1; i <= n; i++) {
         cin >> arr[i];
     }
@@ -61,6 +64,7 @@ int main() {
             cout << "Turing Machine" << endl;
             turing = Origin;
             int findX;
+            cout << "please input the number you want to find : " << endl;
             cin >> findX;
             if (findX == -1)
                 break;
@@ -77,6 +81,7 @@ int main() {
         } else if (x == 2) {
             cout << "Recursive System" << endl;
             int findX;
+            cout << "please input the number you want to find : " << endl;
             cin >> findX;
             if (findX == -1)
                 break;
@@ -89,14 +94,29 @@ int main() {
             }
         } else if (x == 3) {
             cout << "Recursive System 01 bag DP" << endl;
+            cout << "please input goodsNum and bag capacity : " << endl;
             cin >> goodNum >> capacity;
             for (int i = 1; i <= goodNum; i++) {
+                cout << "please input " << i << "th weight and value : " << endl;
                 cin >> weight[i] >> val[i];
             }
             FuncStack = OriginStack;
+            int maxVal = memDfs (goodNum, capacity);
+            cout << "f[" << goodNum << "][" << capacity << "] = " << maxVal << endl;
+            for (int i = 0; i <= goodNum; i++)
+                for (int j = 0; j <= capacity; j++)
+                    vis[i][j] = f[i][j] = 0;
+            cout << "Memory Cost = ";
+            int memCost = sizeof (int) * goodNum * capacity;
+            memCost += maxRecusiveTot * sizeof (int) * 2;
+            cout << memCost << " byte" << endl;
+            maxRecusiveTot = 0;
+            cout << "execute times = " << executeTot << endl;
+            executeTot = 0;
         } else {
             break;
         }
     }
+
     return 0;
 }
