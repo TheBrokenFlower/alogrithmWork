@@ -113,7 +113,12 @@ int main() {
             maxRecusiveTot = 0;
             cout << "execute times = " << executeTot << endl;
             executeTot = 0;
-        } else {
+        }
+            else if (x == 5) {
+            cout << "Please give T and M:" << endl;
+            initBranch();
+        }
+        else {
             break;
         }
     }
